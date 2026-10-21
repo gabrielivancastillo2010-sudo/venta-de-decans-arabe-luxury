@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sultan Decants - Perfumería Árabe de Lujo</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Fondo Interactivo de Partículas -->
+    <div class="particle-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Barra de Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">SULTAN <span>DECANTS</span></a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="cart-icon-wrapper" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero / Banner -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1 class="gold-text">Elegancia & Exclusividad Árabe</h1>
+            <p>Descubre el lujo de Oriente Medio en formatos exclusivos de decants.</p>
+            <a href="#catalogo" class="btn-primary">Explorar Colección</a>
+        </div>
+    </section>
+
+    <!-- Carrusel de Destacados -->
+    <section class="carousel-section">
+        <h2 class="section-title">Nuestras Joyas Olfativas</h2>
+        <div class="carousel-container">
+            <div class="carousel-track" id="carousel-track">
+                <!-- Tarjetas del carrusel generadas dinámicamente -->
+            </div>
+            <button class="carousel-btn prev" onclick="moveCarousel(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn next" onclick="moveCarousel(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Sección Catálogo con Filtros -->
+    <section id="catalogo" class="catalog-section">
+        <h2 class="section-title">Catálogo de Fragancias</h2>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCatalog('todos')">Todos</button>
+            <button class="filter-btn" onclick="filterCatalog('diario')">Uso Diario</button>
+            <button class="filter-btn" onclick="filterCatalog('fiesta')">Fiestas & Noche</button>
+            <button class="filter-btn" onclick="filterCatalog('trabajo')">Oficina & Trabajo</button>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+            <!-- Productos cargados por JavaScript -->
+        </div>
+    </section>
+
+    <!-- Modal de Especificaciones del Producto -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modal-img" src="" alt="Perfume">
+                </div>
+                <div class="modal-details">
+                    <span class="modal-category" id="modal-category">Categoría</span>
+                    <h2 id="modal-title" class="gold-text">Nombre del Perfume</h2>
+                    <p id="modal-desc" class="modal-description"></p>
+
+                    <div class="specs-box">
+                        <p><strong>Notas Olfativas:</strong> <span id="modal-notes"></span></p>
+                        <p><strong>Duración Estimada:</strong> <span id="modal-duration"></span></p>
+                    </div>
+
+                    <div class="size-selector">
+                        <label>Selecciona Tamaño Decant:</label>
+                        <div class="size-options">
+                            <button class="size-btn active" data-size="2ml" onclick="selectSize('2ml')">2 ml</button>
+                            <button class="size-btn" data-size="5ml" onclick="selectSize('5ml')">5 ml</button>
+                            <button class="size-btn" data-size="10ml" onclick="selectSize('10ml')">10 ml</button>
+                            <button class="size-btn" data-size="15ml" onclick="selectSize('15ml')">15 ml</button>
+                        </div>
+                    </div>
+
+                    <div class="price-action-row">
+                        <div class="price-display">
+                            <span>Precio:</span>
+                            <h3 id="modal-price" class="silver-text">$0.00</h3>
+                        </div>
+                        <button class="btn-primary" onclick="addCurrentToCart()">
+                            <i class="fas fa-cart-plus"></i> Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel Lateral del Carrito de Compras -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Elementos añadidos dinámicamente -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price" class="gold-text">$0.00</span>
+            </div>
+            <button class="btn-whatsapp" onclick="sendWhatsAppOrder()">
+                <i class="fab fa-whatsapp"></i> Realizar Pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay de Fondo para Modales y Carrito -->
+    <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
+
+    <!-- Pie de Página -->
+    <footer id="contacto">
+        <p>&copy; 2026 Sultan Decants. Exclusividad en Fragancias Árabes. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
